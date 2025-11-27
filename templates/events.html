@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="page-head">
+    <h1>All Campus Events</h1>
+    <a href="{{ url_for('add_event') }}" class="btn small">Add Event</a>
+  </div>
+
+  <ul class="event-list">
+    {% for ev in events %}
+      <li class="card">
+        <h3>{{ ev.title }}</h3>
+        <p class="muted">{{ ev.date }} • {{ ev.venue }}</p>
+        <p class="desc">{{ ev.description }}</p>
+      </li>
+    {% else %}
+      <li class="muted">No events yet. Be the first to add one!</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

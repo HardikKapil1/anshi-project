@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="card">
+    <h2>Add Item</h2>
+    <form method="post" enctype="multipart/form-data">
+      <label>Type</label>
+      <select name="type" required>
+        <option value="lost">Lost</option>
+        <option value="found">Found</option>
+      </select>
+
+      <label>Title</label>
+      <input type="text" name="title" required>
+
+      <label>Category</label>
+      <input type="text" name="category">
+
+      <label>Description</label>
+      <textarea name="description"></textarea>
+
+      <label>Date (when lost/found)</label>
+      <input type="date" name="date">
+
+      <label>Location</label>
+      <input type="text" name="location">
+
+      <label>Photo</label>
+      <input type="file" name="photo" accept="image/*">
+
+      <button class="btn" type="submit">Post Item</button>
+    </form>
+  </div>
+{% endblock %}

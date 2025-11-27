@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="page-head">
+    <h1>Campus Event &amp; Find Hub</h1>
+    <form action="{{ url_for('index') }}" method="get" class="search-inline" onsubmit="return doSearch(this)">
+      <input type="text" name="q" placeholder="Search items by title, location, category" id="searchbox">
+      <select name="type">
+        <option value="">All</option>
+        <option value="lost">Lost</option>
+        <option value="found">Found</option>
+      </select>
+      <button type="submit" class="btn">Search</button>
+    </form>
+  </div>
+
+  <div class="page-head second">
+    <h2>Upcoming Events</h2>
+    <a href="{{ url_for('events') }}" class="btn small">View all events</a>
+  </div>
+
+  <ul class="event-list home">
+    {% for ev in events[:3] %}
+      <li>
+        <strong>{{ ev.title }}</strong>
+        <span class="muted">{{ ev.date }} • {{ ev.venue }}</span>
+      </li>
+    {% else %}
+      <li class="muted">No events added yet.</li>
+    {% endfor %}
+  </ul>
+
+  <h2 class="section-title">Lost &amp; Found Items</h2>
+  <div class="grid">
+    {% for item in items %}
+      <article class="card">
+        <a href="{{ url_for('item_detail', item_id=item.item_id) }}">
+          <div class="thumb">
+            {% if item.photo_path %}
+              <img src="/{{ item.photo_path }}" alt="{{ item.title }}">
+            {% else %}
+              <div class="noimg">No Image</div>
+            {% endif %}
+          </div>
+          <div class="card-body">
+            <h3>{{ item.title }}</h3>
+            <p class="muted">{{ item.type|capitalize }} • {{ item.location or 'Unknown' }} • {{ item.date }}</p>
+            <p class="desc">{{ item.description[:120] }}{% if item.description|length > 120 %}...{% endif %}</p>
+          </div>
+        </a>
+      </article>
+    {% else %}
+      <p>No items yet. Be the first to post!</p>
+    {% endfor %}
+  </div>
+{% endblock %}
